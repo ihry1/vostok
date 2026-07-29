@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
-	Name="render_base"
+	Version="9,00"
+	Name="render_facade"
 	ProjectGUID="{C2FEBAE9-7A0D-483E-89B7-1FF2388187E4}"
-	RootNamespace="render_base"
+	RootNamespace="render_facade"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -44,6 +44,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
@@ -119,6 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
@@ -335,6 +337,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				Optimization="3"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
@@ -412,6 +415,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
@@ -855,7 +859,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\render_base_library_linkage.cpp"
+				RelativePath=".\render_facade_library_linkage.cpp"
 				>
 			</File>
 		</Filter>
@@ -875,14 +879,10 @@
 				>
 			</File>
 			<Filter
-				Name="base"
+				Name="facade"
 				>
 				<File
-					RelativePath="..\api.h"
-					>
-				</File>
-				<File
-					RelativePath="..\command_common.h"
+					RelativePath="..\base_command.h"
 					>
 				</File>
 				<File
@@ -890,31 +890,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\debug_renderer.h"
+					RelativePath="..\cull_mode.h"
 					>
 				</File>
 				<File
-					RelativePath="..\editor_allocator.h"
+					RelativePath="..\decal_properties.h"
 					>
 				</File>
 				<File
-					RelativePath="..\editor_renderer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\engine_renderer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\engine_wrapper.h"
-					>
-				</File>
-				<File
-					RelativePath="..\extended_renderer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\game_renderer.h"
+					RelativePath="..\decal_properties_inline.h"
 					>
 				</File>
 				<File
@@ -922,594 +906,417 @@
 					>
 				</File>
 				<File
-					RelativePath="..\logic_allocator.h"
+					RelativePath="..\material_effects_instance_cook_data.h"
 					>
 				</File>
 				<File
-					RelativePath="..\memory.h"
+					RelativePath="..\model.h"
 					>
 				</File>
 				<File
-					RelativePath="..\platform.h"
+					RelativePath="..\particles.h"
 					>
 				</File>
 				<File
-					RelativePath="..\render_allocator.h"
+					RelativePath="..\render_stage_types.h"
 					>
 				</File>
 				<File
-					RelativePath="..\transform_control.h"
+					RelativePath="..\scene_view_mode.h"
 					>
 				</File>
 				<File
-					RelativePath="..\ui_renderer.h"
+					RelativePath="..\terrain_base.h"
 					>
 				</File>
 				<File
-					RelativePath="..\visual.h"
+					RelativePath="..\vertex_input_type.h"
 					>
 				</File>
-				<File
-					RelativePath="..\world.h"
+				<Filter
+					Name="one_way_render_channel"
 					>
-				</File>
+					<File
+						RelativePath="..\one_way_render_channel.h"
+						>
+					</File>
+					<File
+						RelativePath="..\one_way_render_channel_inline.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="renderers"
+					>
+					<File
+						RelativePath="..\debug_renderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\editor_renderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\engine_renderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\game_renderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\scene_renderer.h"
+						>
+					</File>
+					<File
+						RelativePath="..\ui_renderer.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="world"
 			>
 			<File
-				RelativePath=".\render_base_world.cpp"
+				RelativePath=".\render_facade_world.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ShowIncludes="false"
+					/>
+				</FileConfiguration>
 			</File>
 			<Filter
-				Name="debug_renderer"
+				Name="one_way_render_channel"
 				>
 				<File
-					RelativePath=".\debug_renderer.cpp"
+					RelativePath=".\one_way_render_channel.cpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="render_stage_types"
+				>
 				<File
-					RelativePath=".\debug_renderer.h"
+					RelativePath=".\render_stage_types.cpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="renderers"
+				>
 				<Filter
-					Name="commands"
+					Name="game_renderer"
 					>
-					<Filter
-						Name="draw_triangles"
+					<File
+						RelativePath=".\game_renderer.cpp"
 						>
-						<File
-							RelativePath=".\debug_draw_triangles_command.cpp"
+					</File>
+				</Filter>
+				<Filter
+					Name="debug_renderer"
+					>
+					<File
+						RelativePath=".\debug_renderer.cpp"
+						>
+					</File>
+					<Filter
+						Name="commands"
+						>
+						<Filter
+							Name="draw_triangles"
 							>
-						</File>
-						<File
-							RelativePath=".\debug_draw_triangles_command.h"
+							<File
+								RelativePath=".\debug_draw_triangles_command.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\debug_draw_triangles_command.h"
+								>
+							</File>
+							<File
+								RelativePath=".\debug_draw_triangles_command_inline.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="draw_lines"
 							>
-						</File>
-						<File
-							RelativePath=".\debug_draw_triangles_command_inline.h"
-							>
-						</File>
+							<File
+								RelativePath=".\debug_draw_lines_command.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\debug_draw_lines_command.h"
+								>
+							</File>
+							<File
+								RelativePath=".\debug_draw_lines_command_inline.h"
+								>
+							</File>
+						</Filter>
 					</Filter>
-					<Filter
-						Name="draw_lines"
+				</Filter>
+				<Filter
+					Name="editor_renderer"
+					>
+					<File
+						RelativePath=".\editor_renderer.cpp"
 						>
-						<File
-							RelativePath=".\debug_draw_lines_command.cpp"
+						<FileConfiguration
+							Name="Debug|Win32"
 							>
-						</File>
-						<File
-							RelativePath=".\debug_draw_lines_command.h"
+							<Tool
+								Name="VCCLCompilerTool"
+								ShowIncludes="false"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Master Gold|Win32"
+							ExcludedFromBuild="true"
 							>
-						</File>
-						<File
-							RelativePath=".\debug_draw_lines_command_inline.h"
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Master Gold|x64"
+							ExcludedFromBuild="true"
 							>
-						</File>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+					</File>
+					<Filter
+						Name="commands"
+						>
+						<Filter
+							Name="draw_screen_lines"
+							>
+							<File
+								RelativePath=".\editor_draw_screen_lines_command.cpp"
+								>
+								<FileConfiguration
+									Name="Master Gold|Win32"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+								<FileConfiguration
+									Name="Master Gold|x64"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+							</File>
+							<File
+								RelativePath=".\editor_draw_screen_lines_command.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="draw_3d_screen_lines"
+							>
+							<File
+								RelativePath=".\editor_draw_3d_screen_lines_command.cpp"
+								>
+								<FileConfiguration
+									Name="Master Gold|Win32"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+								<FileConfiguration
+									Name="Master Gold|x64"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+							</File>
+							<File
+								RelativePath=".\editor_draw_3d_screen_lines_command.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="terrain_cell_update_buffer"
+							>
+							<File
+								RelativePath=".\terrain_cell_update_buffer_command.cpp"
+								>
+								<FileConfiguration
+									Name="Master Gold|Win32"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+								<FileConfiguration
+									Name="Master Gold|x64"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+							</File>
+							<File
+								RelativePath=".\terrain_cell_update_buffer_command.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="terrain_exchange_texture"
+							>
+							<File
+								RelativePath=".\terrain_exchange_texture_command.cpp"
+								>
+								<FileConfiguration
+									Name="Master Gold|Win32"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+								<FileConfiguration
+									Name="Master Gold|x64"
+									ExcludedFromBuild="true"
+									>
+									<Tool
+										Name="VCCLCompilerTool"
+									/>
+								</FileConfiguration>
+							</File>
+							<File
+								RelativePath=".\terrain_exchange_texture_command.h"
+								>
+							</File>
+						</Filter>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="engine_renderer"
+					>
+					<File
+						RelativePath=".\engine_renderer.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="scene_renderer"
+					>
+					<File
+						RelativePath=".\scene_renderer.cpp"
+						>
+					</File>
+					<Filter
+						Name="commands"
+						>
+						<Filter
+							Name="update_skeleton"
+							>
+							<File
+								RelativePath=".\update_skeleton_command.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\update_skeleton_command.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="update_model_vertex_buffer"
+							>
+							<File
+								RelativePath=".\update_model_vertex_buffer_command.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\update_model_vertex_buffer_command.h"
+								>
+							</File>
+						</Filter>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="ui_renderer"
+					>
+					<File
+						RelativePath=".\ui_renderer.cpp"
+						>
+					</File>
+					<Filter
+						Name="commands"
+						>
+						<Filter
+							Name="draw_vertices"
+							>
+							<File
+								RelativePath=".\ui_draw_vertices_command.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\ui_draw_vertices_command.h"
+								>
+							</File>
+						</Filter>
 					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="engine_renderer"
+				Name="vertex_input_type"
 				>
 				<File
-					RelativePath=".\engine_renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\engine_renderer.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="game_renderer"
-				>
-				<File
-					RelativePath=".\game_renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\game_renderer.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="ui_renderer"
-				>
-				<File
-					RelativePath=".\ui_renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ui_renderer.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="editor_renderer"
-				>
-				<File
-					RelativePath=".\editor_renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\editor_renderer.h"
-					>
-				</File>
-				<Filter
-					Name="commands"
-					>
-					<Filter
-						Name="clear_zbuffer"
-						>
-						<File
-							RelativePath=".\editor_clear_zbuffer_command.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\editor_clear_zbuffer_command.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="draw_screen_lines"
-						>
-						<File
-							RelativePath=".\editor_draw_screen_lines_command.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\editor_draw_screen_lines_command.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="flush"
-						>
-						<File
-							RelativePath=".\editor_flush_command.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\editor_flush_command.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="setup_grid_render_mode"
-						>
-						<File
-							RelativePath=".\editor_setup_grid_render_mode_command.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\editor_setup_grid_render_mode_command.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="setup_rotation_control_modes"
-						>
-						<File
-							RelativePath=".\editor_setup_rotation_control_modes_command.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\editor_setup_rotation_control_modes_command.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="draw_3d_screen_lines"
-						>
-						<File
-							RelativePath=".\editor_draw_3d_screen_lines_command.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\editor_draw_3d_screen_lines_command.h"
-							>
-						</File>
-					</Filter>
-				</Filter>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="commands"
-			>
-			<Filter
-				Name="processor"
-				>
-				<File
-					RelativePath=".\command_processor.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_processor.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="delegate"
-				>
-				<File
-					RelativePath=".\command_delegate.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_delegate.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="view_matrix"
-				>
-				<File
-					RelativePath=".\command_view_matrix.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_view_matrix.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="add_static"
-				>
-				<File
-					RelativePath=".\command_add_static.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_add_static.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="projection_matrix"
-				>
-				<File
-					RelativePath=".\command_projection_matrix.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_projection_matrix.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="visual"
-				>
-				<File
-					RelativePath=".\command_add_visual.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_add_visual.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_change_visual_shader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_change_visual_shader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_draw_visual.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_draw_visual.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_remove_visual.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_remove_visual.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_render_visuals.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_render_visuals.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_update_visual.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_update_visual.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_update_visual_vertex_buffer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_update_visual_vertex_buffer.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="light"
-				>
-				<File
-					RelativePath=".\command_add_light.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_add_light.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_remove_light.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_remove_light.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_update_light.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_update_light.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="terrain"
-				>
-				<File
-					RelativePath=".\command_terrain_add_cell.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_add_cell.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_add_texture.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_add_texture.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_remove_texture.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_remove_texture.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_set_visible.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_set_visible.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_update_buffer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_cell_update_buffer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_exchange_texture.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_exchange_texture.h"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_remove_cell.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\command_terrain_remove_cell.h"
+					RelativePath=".\vertex_input_type.cpp"
 					>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
-			Name="platforms"
+			Name="common commands"
 			>
-			<File
-				RelativePath=".\platform_api.h"
-				>
-			</File>
 			<Filter
-				Name="pc"
+				Name="functor"
 				>
 				<File
-					RelativePath=".\platform_api_pc.cpp"
+					RelativePath=".\functor_command.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\platform_dx11.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ShowIncludes="false"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\platform_dx11.h"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release(static)|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug(static)|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Master Gold|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\platform_dx9.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\platform_dx9.h"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release(static)|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug(static)|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Master Gold|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\platform_dx9_inline.h"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release(static)|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug(static)|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Master Gold|Win32"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\platform_dx9_static.cpp"
+					RelativePath=".\functor_command.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="xbox360"
+				Name="functor_with_big_buffer_to_copy"
 				>
-			</Filter>
-			<Filter
-				Name="ps3"
-				>
+				<File
+					RelativePath=".\functor_with_big_buffer_to_copy_command.h"
+					>
+				</File>
+				<File
+					RelativePath=".\functor_with_big_buffer_to_copy_command_inline.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File
-			RelativePath=".\render_base_entry_point.cpp"
+			RelativePath=".\render_facade_entry_point.cpp"
 			>
 		</File>
 	</Files>
