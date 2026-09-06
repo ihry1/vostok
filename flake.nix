@@ -290,21 +290,22 @@
       # vostok-libs - proprietary third-party DLLs and import libraries.
       # Pre-packaged as a zip; the archive's top-level directory `vostok-libs/`
       # is stripped on unpack so $out exposes `sources/...` directly.
-      # Uploaded to: gh release upload v0.100b vostok-libs-v0.100b-gfx421r2.zip --repo srp-survarium/vostok
+      # Uploaded to: gh release upload v0.100b vostok-libs-v0.100b-pc-only.zip --repo srp-survarium/vostok
       # gfx422: foreign 4.0.15 GFx libs replaced by our from-source 4.2.22 suite
       # (built per the shipped PDB recipe; see docs + vostok/build/gfx.py).
       # ---------------------------------------------------------------------------
       vostok-libs = pkgs.runCommand "vostok-libs" {
-        # gfx421r2: the GFx Shipping suite rebuilt from source with the 4.2.21
+        # PC-only package: console SDKs and console library builds removed.
+        # GFx Shipping suite rebuilt from source with the 4.2.21
         # reconstructions (sockets config, pointers_to_members pragma,
         # hash-verified header/TU rollbacks) plus libgfxexpat.lib and pcre.lib
         # the exe pragma-links - cut by `vostok tool libs-release`, compiled
         # through the C:\survarium\gfx-sdk alias so the objects record that
         # neutral prefix (paths.GFX_RELEASE_PREFIX). Same machine code as r1.
         src = pkgs.fetchurl {
-          name = "vostok-libs-v0.100b-gfx421r2.zip";
-          url = "https://github.com/srp-survarium/vostok/releases/download/v0.100b/vostok-libs-v0.100b-gfx421r2.zip";
-          sha256 = "3cd445a2c04518c14cbee924b597c672a747582646d76430abe878b94ccb4df2";
+          name = "vostok-libs-v0.100b-pc-only.zip";
+          url = "https://github.com/srp-survarium/vostok/releases/download/v0.100b/vostok-libs-v0.100b-pc-only.zip";
+          sha256 = "9c990d54992b864d58908525b05ed88aecc8f71e76f1c9a44112b3295fea4836";
         };
         nativeBuildInputs = [ pkgs.unzip ];
       } ''
@@ -353,7 +354,7 @@
       '';
 
       # ---------------------------------------------------------------------------
-      # Scaleform GFx 4.2.22 SDK - full source, from the DuckTales Remastered
+      # Scaleform GFx 4.2.22 SDK - source from the DuckTales Remastered
       # source release (its only public copy). vostok.build.gfx compiles the
       # libgfx suite from this tree; retail's own gfx_4.2.21 tree is
       # byte-identical for 806 of its 1,128 files (proven against the retail
@@ -386,6 +387,9 @@
         [ -d "$src_dir" ] || { echo "ERROR: extraction missing $src_dir"; exit 1; }
         mkdir -p "$out"
         cp -r "$src_dir"/. "$out"/
+        # Console ports and their libraries are unused by the Windows target.
+        find "$out" -depth \( -iname '*ps3*' -o -iname '*xbox*' -o -iname '*xenon*' \) \
+          -exec rm -rf -- {} +
       '';
 
       # ---------------------------------------------------------------------------

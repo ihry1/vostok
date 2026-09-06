@@ -40,7 +40,7 @@ _All figures come from the ledger over every target function (paired plus inline
 | `survarium`     |     5 |       19 / 22 (86.4%) |       21 / 22 (95.5%) |  96.0% |     98.1% |
 | `ai_navigation` |     3 |      14 / 14 (100.0%) |      14 / 14 (100.0%) | 100.0% |    100.0% |
 
-_Updated 2026-09-05 &middot; delinker `d7e9292` (folded-symbol reconciliation)._
+_Updated 2026-09-06 &middot; delinker `d7e9292` (folded-symbol reconciliation)._
 <!-- match-score:end -->
 
 <!-- data-match:start -->
@@ -48,13 +48,13 @@ _Updated 2026-09-05 &middot; delinker `d7e9292` (folded-symbol reconciliation)._
 
 _Auto-generated from the consumer-owned objdiff projection plus the independent linked-image audit; it does not feed the function score._
 
-**Function-reachable retail data: 98.13% (70,200,521 / 71,536,291 unique bytes) &middot; paired for comparison: 4.31% (3,084,977 / 71,536,291) &middot; matched projected copies: 66.01% (17,413,425 / 26,379,525).**
+**Function-reachable retail data: 98.13% (70,200,521 / 71,536,291 unique bytes) &middot; paired for comparison: 4.31% (3,085,085 / 71,536,291) &middot; matched projected copies: 66.01% (17,413,389 / 26,381,553).**
 
-_The projection has 14,394 paired copies across 1,695 units and 31,647 unresolved blockers. Strict relocation comparison exposes 1,451 otherwise-exact functions (565,881 code bytes) with referent debt._
+_The projection has 14,639 paired copies across 1,695 units and 31,402 unresolved blockers. Strict relocation comparison exposes 1,458 otherwise-exact functions (565,671 code bytes) with referent debt._
 
-_The linked-image audit is 3.99% exact and covers 98.57% by PDB type extent, with 86.38% paired-only fidelity (10658 / 12179 definitions). Integrity ratchet: armed._
+_The linked-image audit is 3.99% exact and covers 98.57% by PDB type extent, with 86.38% paired-only fidelity (10659 / 12180 definitions). Integrity ratchet: armed._
 
-_Updated 2026-09-05._
+_Updated 2026-09-06._
 <!-- data-match:end -->
 
 ## Requirements
@@ -127,6 +127,12 @@ hash to pin. Add `--upload` to upload it to the `v0.100b` release in
 [toolchain packaging instructions](docs/build/toolchain-build.md) publish to the
 same release. To *play* the game rather than match it, `scripts/create-wine-prefix.py`
 builds a run-only Wine prefix from a bare clone.
+
+The library archive and staging tool exclude the Sony Cell SDK and the PS3/Xbox
+builds of `cs`, Lua, and luabind. Staging removes these directories from older
+`binaries.prebuilt/` installations too. The optional Scaleform SDK derivation
+removes its PS3/Xbox ports and libraries. Console-only engine files and tools
+are omitted; shared Windows/console implementations remain for the PC build.
 
 ## Game data
 

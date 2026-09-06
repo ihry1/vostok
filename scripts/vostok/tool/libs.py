@@ -18,7 +18,7 @@ import os
 import shutil
 from pathlib import Path
 
-from vostok.core.paths import PREBUILT, REPO
+from vostok.core.paths import CONSOLE_LIBRARY_ROOTS, PREBUILT, REPO
 from vostok.core import log as _log
 
 EXTS = {'.pdb', '.exe', '.dll', '.a', '.lib'}
@@ -30,9 +30,7 @@ LIBS_DIR    = Path(os.environ.get("VOSTOK_LIBS_DIR", str(REPO.parent / "vostok-l
 SRC         = LIBS_DIR   / "sources"
 DEST        = PREBUILT
 
-# `COPYING.LIB` is LGPL license TEXT (cell SDK), not a binary blob - the `*.lib`
-# ext glob catches it. It is committed as normal source under sources/, so we
-# SKIP it here rather than staging a copy (no special destination needed).
+# License text can share the .lib suffix with binary archives.
 LICENSE_NAMES  = {"COPYING.LIB"}
 
 # Our from-source 4.2.22 GFx suite (built per the shipped PDB's recipe - non-/GL,
@@ -43,6 +41,31 @@ LICENSE_NAMES  = {"COPYING.LIB"}
 # by these - no skip/clobber dance needed.
 GFX_SRC = Path("scaleform/Lib/Win32/Msvc90/Shipping")
 GFX_DST = Path("Win32/libraries/shipping")
+
+
+def console_library_path(path: Path) -> bool:
+    """Identify console SDKs and console-only builds in a library package."""
+    parts = tuple(part.casefold() for part in path.parts)
+    return any(parts[:len(root.parts)] == tuple(p.casefold() for p in root.parts)
+               for root in CONSOLE_LIBRARY_ROOTS)
+
+
+def prune_console_libraries(root: Path) -> int:
+    """Remove stale console directories when updating an older staged package."""
+    removed = 0
+    if not root.exists():
+        return removed
+    for directory, dirs, _ in os.walk(root, topdown=True):
+        for name in list(dirs):
+            path = Path(directory) / name
+            if console_library_path(path.relative_to(root)):
+                if path.is_symlink():
+                    path.unlink()
+                else:
+                    shutil.rmtree(path)
+                dirs.remove(name)
+                removed += 1
+    return removed
 
 
 def dest_for(rel_path: Path, dest: Path) -> Path:
@@ -78,6 +101,7 @@ def main():
     if args.reverse:
         src, dest = dest, src
 
+    pruned = prune_console_libraries(dest)
     copied = 0
     total_bytes = 0
 
@@ -85,6 +109,8 @@ def main():
         # License text (COPYING.LIB) is committed source, not a staged blob - skip it.
         if file.is_file() and file.suffix.lower() in EXTS and file.name not in LICENSE_NAMES:
             rel_path = file.relative_to(src)
+            if console_library_path(rel_path):
+                continue
             target = dest_for(rel_path, dest)
             target.parent.mkdir(parents=True, exist_ok=True)
 
@@ -101,6 +127,8 @@ def main():
             total_bytes += file.stat().st_size
 
     print(f"Copied {copied} files ({human_size(total_bytes)}) -> {dest}")
+    if pruned:
+        print(f"Removed {pruned} stale console library directories")
 
 if __name__ == "__main__":
     raise SystemExit(_log.run("vostok.tool.libs", main))

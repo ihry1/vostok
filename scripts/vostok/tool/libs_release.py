@@ -27,7 +27,7 @@ import zipfile
 from pathlib import Path
 
 from vostok.core.paths import BINARIES
-from vostok.tool.libs import GFX_SRC, LIBS_DIR
+from vostok.tool.libs import GFX_SRC, LIBS_DIR, console_library_path, prune_console_libraries
 from vostok.core.log import logger
 from vostok.core import log as _log
 
@@ -67,6 +67,8 @@ def stage(work: Path) -> Path:
         os.chmod(d, 0o755)
         for f in files:
             os.chmod(os.path.join(d, f), 0o644)
+    removed = prune_console_libraries(root / "sources")
+    log(f"removed {removed} console SDK/library directories")
     ship = root / "sources" / GFX_SRC
     ship.mkdir(parents=True, exist_ok=True)
     for name in gfx.DEFAULT_ORDER:
@@ -85,6 +87,9 @@ def package(root: Path, output: Path) -> str:
         for p in sorted(root.rglob("*")):
             if not p.is_file():
                 continue
+            relative = p.relative_to(root)
+            if relative.parts[0] == "sources" and console_library_path(Path(*relative.parts[1:])):
+                raise SystemExit(f"console dependency remains in release staging: {relative}")
             info = zipfile.ZipInfo(str(p.relative_to(root.parent)), date_time=RELEASE_DATE)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o644 << 16

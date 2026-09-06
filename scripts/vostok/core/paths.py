@@ -82,6 +82,11 @@ RETAIL_INCLUDE_SOURCE_PREFIX = r"C:\survarium\sources"
 BINARIES = REPO / "binaries"
 GEN_DIR = BINARIES / "gen"
 PREBUILT = REPO / "binaries.prebuilt"
+CONSOLE_LIBRARY_ROOTS = (
+    Path("cell"),
+    Path("cs/libraries/PS3"),
+    Path("cs/libraries/Xbox 360"),
+)
 NIX_STORE = BINARIES / "nix-store"
 NINJA_DIR = BINARIES / "ninja"
 WINEPREFIX = BINARIES / ".wineprefix"

@@ -2542,5 +2542,48 @@ class ReportArchivePruneTests(unittest.TestCase):
 
 
 
+class ConsoleLibraryRemovalTests(unittest.TestCase):
+    def test_staging_prunes_old_console_files_and_keeps_windows_libraries(self):
+        from vostok.tool import libs
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, dest = root / "source", root / "dest"
+            files = {
+                "cell/target/ppu/lib/libsys.a": b"console",
+                "cs/libraries/PS3/cs.core.a": b"console",
+                "cs/libraries/Xbox 360/cs.core.lib": b"console",
+                "cs/libraries/Win32/cs.core.lib": b"windows",
+                str(libs.GFX_SRC / "libgfx.lib"): b"gfx",
+            }
+            for name, contents in files.items():
+                for base in (source, dest):
+                    p = base / name
+                    p.parent.mkdir(parents=True, exist_ok=True)
+                    p.write_bytes(contents)
+            # Old archives can differ in case on Windows.
+            stale = dest / "CELL/host-win32/compiler.exe"
+            stale.parent.mkdir(parents=True)
+            stale.write_bytes(b"stale")
+            with mock.patch("sys.argv", ["libs", str(source), str(dest)]):
+                libs.main()
+            self.assertFalse((dest / "cell").exists())
+            self.assertFalse((dest / "CELL").exists())
+            self.assertFalse((dest / "cs/libraries/PS3").exists())
+            self.assertFalse((dest / "cs/libraries/Xbox 360").exists())
+            self.assertEqual((dest / "cs/libraries/Win32/cs.core.lib").read_bytes(), b"windows")
+            self.assertEqual((dest / libs.GFX_DST / "libgfx.lib").read_bytes(), b"gfx")
+            self.assertTrue((source / "cell/target/ppu/lib/libsys.a").exists())
+
+    def test_release_refuses_console_payload(self):
+        from vostok.tool import libs_release
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "vostok-libs"
+            payload = root / "sources/cell/target/ppu/lib/libsys.a"
+            payload.parent.mkdir(parents=True)
+            payload.write_bytes(b"console")
+            with self.assertRaisesRegex(SystemExit, "console dependency remains"):
+                libs_release.package(root, Path(directory) / "libs.zip")
+
+
 if __name__ == "__main__":
     unittest.main()
